@@ -1,0 +1,67 @@
+// Creating a module for creating sieves + sieve "barrels"
+// April 17, 2018
+// Members: Charles Benneh, Adelaide Mensah, Jonathan Jato
+// 
+
+// https://github.com/trendinafrica/analytical_shaker:+1
+
+// Change to 200 or greater after your modifications
+$fn=50;
+
+s_barrel_id = 140 ;// inner diameter of sieve barrel
+s_barrel_od = 150; // inner diameter of sieve barrel
+s_barrel_h = 60; // sieve barrel height
+s_rim_h = 10; //rim height
+
+// create a hollow barrel of id=145, od=150 & h=60
+// We created 
+
+module sievebarrel (){
+ union () { 
+difference () {
+difference (){
+    translate ([0,0,0]){cylinder(d=s_barrel_od,h=s_barrel_h);}; // starting cylinder
+    translate ([0,0,6])cylinder(d=s_barrel_od-5,h= s_barrel_h);} // creates the hollow cylinder
+    cylinder (d=s_barrel_id,h=s_barrel_h+20);} //cylinder responsible for lower perforation
+
+
+//Creates an inner lock to hold the mesh
+//Height of locker above=2 (8-6)
+//Thickness of sieve locker is (140-135 = 5)
+//thickness of inner grove is (145-140 = 5)
+    
+difference(){
+cylinder(d=s_barrel_id, h=8); // change the height if you want to increase the height of the lock rim
+  cylinder(d=s_barrel_id-5, h=20);
+    }
+}
+}
+//Call the module
+sievebarrel (); 
+
+// Creating a rim around the lower part of the cynlinder or barrell
+
+module sieve_rim () {
+union () {
+difference () { 
+    cylinder (d=s_barrel_od+10, h=s_rim_h);
+    cylinder (d=s_barrel_od-5, h=s_rim_h);}
+} }
+//Call the module
+sieve_rim (); 
+
+//height of lower_locker space is 10, sieve top can fit up to 10mm within the locker space! 
+//Thickness is (150-145=5)
+
+module lower_locker () {
+     translate([0,0,-10])
+difference(){
+cylinder(d=s_barrel_od+10, h=s_rim_h);
+cylinder(d=s_barrel_od, h=s_rim_h);
+}
+translate([0,0,-10])
+difference(){
+cylinder(d=s_barrel_id+5, h=s_rim_h);
+  cylinder(d=s_barrel_id-5, h=s_rim_h);}
+ }
+  lower_locker ();
