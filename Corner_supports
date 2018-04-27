@@ -1,0 +1,38 @@
+// Creating a module for creating sieves + sieve "barrels"
+// April 17, 2018
+// Members: Charles Benneh, Adelaide Mensah, Jonathan Jato
+// https://github.com/trendinafrica/analytical_shaker:+1
+
+// Change to 200 or greater after your modifications
+
+$fn=50;
+
+//Create a moodule block
+
+yidler ();
+module yidler ($fn=100) {
+difference () {
+
+    cube ([15,55,20], center=true); 
+diameter=11;
+union () {
+translate ([0,-5.5,0]) {
+cylinder (d=diameter, h=30, center=true);
+}
+translate ([0,6.5,0]) {
+rotate ([0,90,0]) {
+cylinder (d=diameter, h=25, center=true); } }
+translate ([0,-16.5,0]) {
+rotate ([0,90,0]) {
+cylinder (d=diameter, h=25, center=true); 
+}}
+translate ([0,27.5,-2]) {
+cylinder (d=8, h=20, center=true); }
+translate ([0,-5.5,10]) {
+cylinder (d=21, h=4, center=true);
+} } 
+translate ([0,17.5,0]) {
+rotate ([0,90,0]) {
+cube ([4,2,18], center=true); } }
+}
+}
